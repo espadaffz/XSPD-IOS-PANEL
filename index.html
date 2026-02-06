@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XSPD IPHONE PANEL IOS</title>
+<style>
+    /* Reset & body */
+    * { box-sizing: border-box; }
+    body {
+        margin:0;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        background-color: #0d0d0d;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+        width: 100%;
+        background: linear-gradient(90deg, #ff0000, #ff4c4c);
+        padding: 15px;
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    header img {
+        width: 35px;
+        height: 35px;
+        border-radius: 5px;
+    }
+
+    /* Panel */
+    .panel {
+        width: 90%;
+        max-width: 420px;
+        margin-top: 20px;
+        background: #1a1a1a;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+        transition: transform 0.3s ease;
+    }
+    .panel:hover {
+        transform: scale(1.02);
+    }
+
+    /* Options */
+    .option {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+        font-size: 18px;
+    }
+
+    /* Toggle switch */
+    .toggle {
+        width: 50px;
+        height: 24px;
+        background: red;
+        border-radius: 12px;
+        position: relative;
+        cursor: pointer;
+        transition: background 0.3s;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+    .toggle::after {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 16px;
+        height: 16px;
+        background: #fff;
+        border-radius: 50%;
+        transition: left 0.3s;
+    }
+    .toggle.active {
+        background: #00ff00;
+        animation: flicker 0.3s infinite alternate;
+    }
+    @keyframes flicker {
+        0% { box-shadow: 0 0 4px #00ff00; }
+        100% { box-shadow: 0 0 12px #00ff00; }
+    }
+    .toggle.active::after {
+        left: 30px;
+    }
+
+    /* Slider */
+    .slider-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    .slider-container label {
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+    .slider-container input[type=range] {
+        width: 100%;
+        -webkit-appearance: none;
+        height: 8px;
+        border-radius: 5px;
+        background: #333;
+        outline: none;
+    }
+    .slider-container input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #ff0000;
+        cursor: pointer;
+        box-shadow: 0 0 6px #ff0000;
+        transition: 0.2s;
+    }
+    .slider-container input[type=range]::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 12px #ff4c4c;
+    }
+
+    /* Aim select buttons */
+    .aim-select {
+        display: flex;
+        gap: 12px;
+        margin-top: 10px;
+    }
+    .aim-select button {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        color: #fff;
+        background: #800000;
+        transition: 0.3s;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+    }
+    .aim-select button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(255,0,0,0.7);
+    }
+    .aim-select button.active {
+        background: #ff0000;
+        box-shadow: 0 0 12px #ff0000;
+    }
+
+    /* Responsive */
+    @media(max-width: 400px){
+        header { font-size: 18px; }
+        .option { font-size: 16px; }
+    }
+
+</style>
+</head>
+<body>
+
+<header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="logo">
+    XSPD IPHONE PANEL IOS
+</header>
+
+<div class="panel">
+    <div class="option">AIMBOT <div class="toggle" onclick="toggle(this)"></div></div>
+    <div class="option">AIMLEGIT <div class="toggle" onclick="toggle(this)"></div></div>
+    <div class="option">NO RECOIL <div class="toggle" onclick="toggle(this)"></div></div>
+    <div class="option">AIMSCOPE <div class="toggle" onclick="toggle(this)"></div></div>
+    <div class="option">AIMNECK <div class="toggle" onclick="toggle(this)"></div></div>
+    <div class="option">FULL AIM <div class="toggle" onclick="toggle(this)"></div></div>
+
+    <div class="slider-container">
+        <label for="fov">Aim FOV: <span id="fovValue">180</span>°</label>
+        <input type="range" id="fov" min="0" max="360" value="180" oninput="updateFOV(this.value)">
+    </div>
+
+    <div>AIM Target:</div>
+    <div class="aim-select">
+        <button onclick="selectAim(this)">Head</button>
+        <button onclick="selectAim(this)">Neck</button>
+        <button onclick="selectAim(this)">Body</button>
+    </div>
+</div>
+
+<script>
+    function toggle(el){
+        el.classList.toggle('active');
+    }
+    function updateFOV(val){
+        document.getElementById('fovValue').innerText = val;
+    }
+    function selectAim(btn){
+        const buttons = btn.parentElement.querySelectorAll('button');
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
